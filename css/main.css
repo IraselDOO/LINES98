@@ -39,6 +39,9 @@
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --motion-fast: 160ms;
+    --motion-mid: 220ms;
+    --motion-slow: 320ms;
 
     /* Ball Colors - Maximum Saturation v1.5 */
     --ball-red: #ff0000;
@@ -79,7 +82,7 @@ body {
 
 body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, #e0e7ff 0%, #f5f3ff 50%, #fae8ff 100%);
+    background: linear-gradient(145deg, #eef2ff 0%, #f8fafc 55%, #f5f3ff 100%);
     color: var(--text-primary);
     display: flex;
     justify-content: center;
@@ -112,8 +115,8 @@ body::before {
     background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
     top: -100px;
     left: -100px;
-    opacity: 0.15;
-    filter: blur(80px);
+    opacity: 0.09;
+    filter: blur(95px);
 }
 
 body::after {
@@ -122,8 +125,8 @@ body::after {
     background: linear-gradient(135deg, var(--secondary-color), #ec4899);
     bottom: -80px;
     right: -80px;
-    opacity: 0.15;
-    filter: blur(80px);
+    opacity: 0.07;
+    filter: blur(95px);
 }
 
 .screen {
@@ -281,7 +284,6 @@ body::after {
     text-align: center;
 }
 
-.final-score,
 .final-score {
     font-size: 1.2rem;
     color: var(--text-secondary);
@@ -289,7 +291,6 @@ body::after {
     margin: 16px 0;
 }
 
-.final-score span,
 .final-score span {
     font-size: 1.8rem;
     font-weight: 700;

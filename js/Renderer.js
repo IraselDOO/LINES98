@@ -33,6 +33,7 @@ export class Renderer {
         // Game Over specific
         this.gameOverMsg = elements['game-over-message'];
         this.finalScoreEl = elements['final-score'];
+        this.toastTimer = null;
     }
 
     init() {
@@ -161,6 +162,40 @@ export class Renderer {
 
     updateUndoButton(enabled) {
         document.getElementById('btn-undo').disabled = !enabled;
+    }
+
+    showBlockedPath(x, y) {
+        const targetCell = this.getCell(x, y);
+        if (targetCell) {
+            targetCell.classList.remove('invalid-target');
+            // Reflow so the animation reliably restarts on repeated invalid taps.
+            void targetCell.offsetWidth;
+            targetCell.classList.add('invalid-target');
+            setTimeout(() => targetCell.classList.remove('invalid-target'), 260);
+        }
+
+        this.showGameToast('Path is blocked');
+    }
+
+    showGameToast(message) {
+        let toast = document.getElementById('game-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'game-toast';
+            toast.className = 'game-toast';
+            document.body.appendChild(toast);
+        }
+
+        toast.textContent = message;
+        toast.classList.add('visible');
+
+        if (this.toastTimer) {
+            clearTimeout(this.toastTimer);
+        }
+
+        this.toastTimer = setTimeout(() => {
+            toast.classList.remove('visible');
+        }, 1200);
     }
 
     // Animate ball movement along a path

@@ -204,7 +204,7 @@ export class Game {
 
                 this.isProcessing = false;
             } else {
-                console.log("No path");
+                this.renderer.showBlockedPath(x, y);
             }
         }
     }
