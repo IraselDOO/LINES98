@@ -104,7 +104,7 @@
     padding: 4px 12px;
     background: var(--surface-color);
     border-radius: 12px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-sm);
 }
 
 .preview-ball {
@@ -167,12 +167,6 @@
     box-shadow: var(--shadow-sm);
     flex-shrink: 0;
     /* Important: don't let header squash */
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
 }
 
 .header-left {
@@ -350,23 +344,6 @@
 }
 
 /* Footer removed, keeping container clean */
-
-/* Centered Start Screen */
-#start-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: var(--bg-color);
-    /* Ensure opaque background */
-    z-index: 20;
-}
 
 /* Realistic Preview Balls */
 .preview-ball {

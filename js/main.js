@@ -110,8 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const toast = document.createElement('div');
         toast.className = 'update-toast';
         toast.innerHTML = `
-            <span>Доступна новая версия!</span>
-            <button id="btn-update-reload">Обновить</button>
+            <span>New version available!</span>
+            <button id="btn-update-reload">Reload</button>
         `;
         document.body.appendChild(toast);
 

@@ -282,7 +282,7 @@ body::after {
 }
 
 .final-score,
-.best-score {
+.final-score {
     font-size: 1.2rem;
     color: var(--text-secondary);
     text-align: center;
@@ -290,7 +290,7 @@ body::after {
 }
 
 .final-score span,
-.best-score span {
+.final-score span {
     font-size: 1.8rem;
     font-weight: 700;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
