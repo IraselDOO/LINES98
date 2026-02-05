@@ -1,17 +1,21 @@
 .grid {
     display: grid;
-    /* Columns/Rows set by JS, but fallback here */
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
     gap: var(--grid-gap);
     background-color: var(--grid-bg);
     padding: var(--grid-gap);
     border-radius: var(--border-radius);
-    width: 100%;
-    /* Keep it square */
+
+    /* Responsive Scaling */
+    width: 92vmin;
+    max-width: 450px;
+    /* Prevent vertical overflow: 100vh - header(~60px) - score(~120px) - buffer */
+    max-height: calc(100vh - 190px);
+
     aspect-ratio: 1 / 1;
-    min-height: 300px;
-    /* Fallback */
+    margin: 0 auto;
+
     box-shadow: var(--shadow-md);
     border: 1.5px solid rgba(99, 102, 241, 0.1);
 }
@@ -330,22 +334,13 @@
 
 .game-board-container {
     width: 100%;
-    padding: 0 10px;
-    /* Safety padding */
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    /* allow it to take space */
-}
-
-.game-board-container {
-    width: 100%;
-    padding: 0 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
+    overflow: hidden;
+    /* Contain the grid */
 }
 
 /* Footer removed, keeping container clean */
