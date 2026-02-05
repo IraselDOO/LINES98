@@ -1,0 +1,431 @@
+.grid {
+    display: grid;
+    /* Columns/Rows set by JS, but fallback here */
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: var(--grid-gap);
+    background-color: var(--grid-bg);
+    padding: var(--grid-gap);
+    border-radius: var(--border-radius);
+    width: 100%;
+    /* Keep it square */
+    aspect-ratio: 1 / 1;
+    min-height: 300px;
+    /* Fallback */
+    box-shadow: var(--shadow-md);
+    border: 1.5px solid rgba(99, 102, 241, 0.1);
+}
+
+.cell {
+    background-color: var(--surface-color);
+    border-radius: 4px;
+    /* Slightly rounded cells */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cell.selected {
+    background-color: rgba(99, 102, 241, 0.15);
+    /* Highlight selected */
+    box-shadow: inset 0 0 0 2px var(--primary-color);
+}
+
+.ball {
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    transform: scale(0);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: inset -4px -4px 10px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.ball.visible {
+    transform: scale(1);
+}
+
+/* Colors */
+.ball.red {
+    background: radial-gradient(circle at 30% 30%, #f87171, var(--ball-red));
+}
+
+.ball.blue {
+    background: radial-gradient(circle at 30% 30%, #60a5fa, var(--ball-blue));
+}
+
+.ball.green {
+    background: radial-gradient(circle at 30% 30%, #4ade80, var(--ball-green));
+}
+
+.ball.yellow {
+    background: radial-gradient(circle at 30% 30%, #fef9c3, var(--ball-yellow));
+}
+
+.ball.cyan {
+    background: radial-gradient(circle at 30% 30%, #a5f3fc, var(--ball-cyan));
+}
+
+.ball.magenta {
+    background: radial-gradient(circle at 30% 30%, #f0abfc, var(--ball-magenta));
+}
+
+.ball.orange {
+    background: radial-gradient(circle at 30% 30%, #ffedd5, var(--ball-orange));
+}
+
+/* Animations */
+.ball.bounce {
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.9) translateY(2px);
+    }
+}
+
+/* Preview Balls */
+.next-balls-preview {
+    display: flex;
+    gap: 8px;
+    padding: 4px 12px;
+    background: var(--surface-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.preview-ball {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.3), 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Clone color logic for preview */
+.preview-ball.red {
+    background: var(--ball-red);
+}
+
+.preview-ball.blue {
+    background: var(--ball-blue);
+}
+
+.preview-ball.green {
+    background: var(--ball-green);
+}
+
+.preview-ball.yellow {
+    background: var(--ball-yellow);
+}
+
+.preview-ball.cyan {
+    background: var(--ball-cyan);
+}
+
+.preview-ball.magenta {
+    background: var(--ball-magenta);
+}
+
+.preview-ball.orange {
+    background: var(--ball-orange);
+}
+
+/* Flying ball for animation (future) */
+.ball.flying {
+    position: fixed;
+    /* Absolute to the screen, managed by JS */
+    z-index: 50;
+    pointer-events: none;
+    transition: top 0.1s linear, left 0.1s linear;
+    /* Fast linear movement */
+}
+
+/* --- Layout Improvements --- */
+
+.game-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--surface-color);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-new-game {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-lg);
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.btn-new-game:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+}
+
+.btn-new-game:active {
+    transform: translateY(0);
+}
+
+.header-center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-undo-header {
+    background: transparent;
+    border: 2px solid var(--primary-light);
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 6px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.btn-undo-header:hover:not(:disabled) {
+    background: rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
+}
+
+.btn-undo-header:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: #ccc;
+    color: #999;
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--surface-elevated);
+    border: 1.5px solid rgba(99, 102, 241, 0.2);
+    color: var(--primary-color);
+    position: relative;
+    /* For absolute positioning of icons if needed, but we use hidden class logic */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    /* Ensure icons stay inside */
+}
+
+/* Ensure SVG icons behave well */
+.icon-btn svg {
+    display: block;
+    /* Absolute positioning to prevent layout jumping? No, just one visible at a time */
+}
+
+.icon-btn svg.hidden {
+    display: none;
+}
+
+
+
+.icon-btn:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+    border-color: var(--primary-color);
+    color: var(--primary-dark);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+.score-preview-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: var(--surface-elevated);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.score-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-box {
+    background: var(--surface-color);
+    border: 1.5px solid rgba(99, 102, 241, 0.15);
+    border-radius: var(--border-radius);
+    padding: 10px 20px;
+    min-width: 90px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.score-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.next-balls-preview {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    border: 1.5px solid rgba(99, 102, 241, 0.15);
+    box-shadow: var(--shadow-sm);
+}
+
+.game-board-container {
+    width: 100%;
+    padding: 0 10px;
+    /* Safety padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    /* allow it to take space */
+}
+
+.game-board-container {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* Footer removed, keeping container clean */
+
+/* Centered Start Screen */
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--bg-color);
+    /* Ensure opaque background */
+    z-index: 20;
+}
+
+/* Realistic Preview Balls */
+.preview-ball {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #ccc;
+    box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.3), 2px 2px 4px rgba(255, 255, 255, 0.4), 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border: none;
+}
+
+.preview-ball::after {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+}
+
+.preview-ball.red {
+    background: radial-gradient(circle at 35% 35%, #ff7e7e, var(--ball-red), #991b1b);
+}
+
+.preview-ball.blue {
+    background: radial-gradient(circle at 35% 35%, #93c5fd, var(--ball-blue), #1e3a8a);
+}
+
+.preview-ball.green {
+    background: radial-gradient(circle at 35% 35%, #6ee7b7, var(--ball-green), #064e3b);
+}
+
+.preview-ball.yellow {
+    background: radial-gradient(circle at 35% 35%, #fcd34d, var(--ball-yellow), #78350f);
+}
+
+.preview-ball.cyan {
+    background: radial-gradient(circle at 35% 35%, #67e8f9, var(--ball-cyan), #164e63);
+}
+
+.preview-ball.magenta {
+    background: radial-gradient(circle at 35% 35%, #f9a8d4, var(--ball-magenta), #831843);
+}
+
+.preview-ball.orange {
+    background: radial-gradient(circle at 35% 35%, #fdba74, var(--ball-orange), #9a3412);
+}
+
+/* Spawn Hints */
+.spawn-hint {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}

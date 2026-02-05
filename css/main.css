@@ -1,0 +1,300 @@
+:root {
+    /* Modern Material Design Color System */
+    --primary-color: #6366f1;
+    /* Indigo 500 - main brand color */
+    --primary-light: #818cf8;
+    /* Indigo 400 - lighter variant */
+    --primary-dark: #4f46e5;
+    /* Indigo 600 - darker variant */
+
+    --secondary-color: #8b5cf6;
+    /* Purple 500 - accent */
+    --secondary-light: #a78bfa;
+    /* Purple 400 */
+
+    --bg-color: #f8fafc;
+    /* Slate 50 - app background */
+    --surface-color: #ffffff;
+    /* White - cards/surfaces */
+    --surface-elevated: #f1f5f9;
+    /* Slate 100 - elevated surfaces */
+
+    --text-primary: #0f172a;
+    /* Slate 900 - main text */
+    --text-secondary: #64748b;
+    /* Slate 500 - secondary text */
+    --text-tertiary: #94a3b8;
+    /* Slate 400 - disabled/tertiary */
+
+    --grid-bg: #e2e8f0;
+    /* Slate 200 - grid background */
+    --grid-gap: 4px;
+    --border-radius: 12px;
+    /* Increased for modern feel */
+    --border-radius-sm: 8px;
+    --border-radius-lg: 16px;
+
+    /* Shadows - Material Design elevation */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+    /* Ball Colors - Hyper Contrast v1.2 */
+    --ball-red: #b91c1c;
+    /* Red 700 - Dark Cherry (Very distinct from Orange) */
+    --ball-orange: #fb923c;
+    /* Orange 400 - Bright/Light Orange */
+    --ball-yellow: #fcd34d;
+    /* Yellow 300 - Pastel Yellow (Very light) */
+    --ball-green: #00ce00;
+    /* Custom Green - Vibrant Pure Green */
+    --ball-cyan: #22d3ee;
+    /* Cyan 400 - Light Blue */
+    --ball-blue: #1e3a8a;
+    /* Blue 900 - Navy/Deep Blue (Very distinct from Cyan/Green) */
+    --ball-magenta: #d946ef;
+    /* Fuschia 500 - Bright Pink */
+
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    /* Prevent selection for game feel */
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f5f3ff 50%, #fae8ff 100%);
+    color: var(--text-primary);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    position: relative;
+    /* Glass effect container */
+    background: transparent;
+    overflow: hidden;
+}
+
+/* Background circles for decoration */
+body::before,
+body::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+body::before {
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+    top: -100px;
+    left: -100px;
+    opacity: 0.15;
+    filter: blur(80px);
+}
+
+body::after {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(135deg, var(--secondary-color), #ec4899);
+    bottom: -80px;
+    right: -80px;
+    opacity: 0.15;
+    filter: blur(80px);
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+    transform: scale(0.95);
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+    transform: scale(1);
+}
+
+/* Menu Card Style */
+#start-screen {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    padding: 40px 20px;
+    margin: auto;
+    /* Center in #app */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn {
+    padding: 14px 32px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 10px;
+    width: 85%;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    box-shadow: var(--shadow-md);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.btn.primary:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+}
+
+.btn.secondary {
+    background-color: var(--surface-color);
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
+    border: 1.5px solid var(--grid-bg);
+}
+
+.btn.secondary:hover {
+    background-color: var(--surface-elevated);
+    border-color: var(--text-tertiary);
+    transform: translateY(-1px);
+}
+
+.logo {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.8rem;
+    letter-spacing: -1.5px;
+}
+
+.high-score-display {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 600;
+    background: var(--surface-color);
+    padding: 10px 20px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+
+
+/* === Modal & Overlay Styles === */
+.overlay {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 50;
+}
+
+.modal {
+    background: var(--surface-color);
+    border-radius: var(--border-radius-lg);
+    padding: 40px 30px;
+    min-width: 300px;
+    max-width: 90%;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.final-score,
+.best-score {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin: 16px 0;
+}
+
+.final-score span,
+.best-score span {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 8px;
+}
+
+.menu-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}

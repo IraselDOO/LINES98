@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lines98</title>
+    <meta name="description" content="Classic Lines98 Puzzle Game - PWA">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.svg">
+
+    <!-- Preload fonts if any, otherwise standard sans-serif -->
+    <style>
+        /* Fallback for noscript or error */
+        .error-msg {
+            color: red;
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Start Screen / Game Over Screen -->
+        <!-- Unified screen for Start and Game Over states -->
+        <div id="start-screen" class="screen active">
+            <h1 class="logo">LINES98</h1>
+
+            <div id="game-over-message" class="hidden">
+                <h2 style="color: var(--primary-color); margin-bottom: 0.5rem;">Game Over</h2>
+                <div class="final-score">Score: <span id="final-score">0</span></div>
+            </div>
+
+            <div class="high-score-display">High Score: <span id="start-high-score">0</span></div>
+
+            <button id="btn-new-game" class="btn primary">New Game</button>
+            <!-- "Exit" or "Home" button is redundant on Start Screen unless we are in Game Over state? 
+                 User said: "Game Over - results - in general, this should be the same start screen... and offer to start new or exit"
+                 On Start Screen, "Exit" usually means close app (not possible in web) or just stay there.
+                 So we just show "New Game". If "Game Over" state, maybe show a "Back" button? 
+                 But merging them means "New Game" is the main action. 
+                 User said Start Screen has: Records, Start Button, Exit Button.
+                 Let's add an Exit button just for visual completeness if requested, though functionality is limited on web.
+            -->
+            <button id="btn-exit" class="btn secondary" style="display: none;">Exit</button>
+
+            <div class="version-tag" style="position: absolute; bottom: 10px; opacity: 0.5; font-size: 0.7rem;">v1.2
+                (Contrast)</div>
+        </div>
+
+        <!-- Game Screen -->
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <header class="game-header">
+                <div class="header-left">
+                    <button id="btn-home-header" class="icon-btn" aria-label="Home">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </button>
+                    <!-- Restart Button Removed -->
+                </div>
+
+                <div class="header-center">
+                    <button id="btn-undo" class="btn-undo-header" disabled>UNDO</button>
+                </div>
+
+                <div class="header-right">
+                    <button id="btn-sound" class="icon-btn" aria-label="Sound">
+                        <!-- Default: Sound On -->
+                        <svg id="icon-sound-on" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                        <!-- Sound Off (hidden by default) -->
+                        <svg id="icon-sound-off" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <line x1="23" y1="9" x2="17" y2="15"></line>
+                            <line x1="17" y1="9" x2="23" y2="15"></line>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="score-preview-container">
+                <div class="score-display">
+                    <div class="score-box">
+                        <span id="score" class="score-value">0</span>
+                    </div>
+                </div>
+
+                <div class="next-balls-preview" id="preview-balls">
+                    <!-- 4 upcoming balls -->
+                </div>
+
+                <div class="score-display">
+                    <div class="score-box">
+                        <span id="high-score-game" class="score-value">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-board-container">
+                <div id="grid" class="grid">
+                    <!-- Cells will be generated by JS -->
+                </div>
+            </div>
+
+            <!-- Footer removed -->
+        </div>
+
+        <!-- Confirm Restart Modal REMOVED -->
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
