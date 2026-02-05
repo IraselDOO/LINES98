@@ -93,7 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Service Worker & Updates ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js').then(reg => {
+            navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(reg => {
+                // Force update check on each app load (helps mobile browsers with sticky caches).
+                reg.update();
+
                 reg.addEventListener('updatefound', () => {
                     const newWorker = reg.installing;
                     newWorker.addEventListener('statechange', () => {

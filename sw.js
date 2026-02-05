@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lines98-v1.7';
+const CACHE_NAME = 'lines98-v1.8.1';
 const ASSETS = [
   './',
   './index.html',
@@ -16,7 +16,7 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting(); // Force update
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(ASSETS))
@@ -36,8 +36,31 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => response || fetch(event.request))
-  );
+  if (event.request.method !== 'GET') return;
+
+  const isNavigation = event.request.mode === 'navigate';
+  const url = new URL(event.request.url);
+  const isSameOrigin = url.origin === self.location.origin;
+
+  // Always try network first for document navigations to avoid stale UI on mobile.
+  if (isNavigation) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseClone));
+          return response;
+        })
+        .catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
+
+  // For same-origin static files use cache-first with network fallback.
+  if (isSameOrigin) {
+    event.respondWith(
+      caches.match(event.request)
+        .then((cached) => cached || fetch(event.request))
+    );
+  }
 });
