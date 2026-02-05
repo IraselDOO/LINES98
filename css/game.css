@@ -57,31 +57,31 @@
 
 /* Colors */
 .ball.red {
-    background: radial-gradient(circle at 30% 30%, #ff8a8a, var(--ball-red));
+    background: radial-gradient(circle at 35% 35%, #ff7e7e, var(--ball-red), #991b1b);
 }
 
 .ball.blue {
-    background: radial-gradient(circle at 30% 30%, #8ca0ff, var(--ball-blue));
+    background: radial-gradient(circle at 35% 35%, #93c5fd, var(--ball-blue), #1e3a8a);
 }
 
 .ball.green {
-    background: radial-gradient(circle at 30% 30%, #4ade80, var(--ball-green));
+    background: radial-gradient(circle at 35% 35%, #6ee7b7, var(--ball-green), #064e3b);
 }
 
 .ball.yellow {
-    background: radial-gradient(circle at 30% 30%, #ffffd0, var(--ball-yellow));
+    background: radial-gradient(circle at 35% 35%, #fcd34d, var(--ball-yellow), #78350f);
 }
 
 .ball.cyan {
-    background: radial-gradient(circle at 30% 30%, #a0f0ff, var(--ball-cyan));
+    background: radial-gradient(circle at 35% 35%, #67e8f9, var(--ball-cyan), #164e63);
 }
 
 .ball.magenta {
-    background: radial-gradient(circle at 30% 30%, #ffc0f8, var(--ball-magenta));
+    background: radial-gradient(circle at 35% 35%, #f9a8d4, var(--ball-magenta), #831843);
 }
 
 .ball.orange {
-    background: radial-gradient(circle at 30% 30%, #ffead0, var(--ball-orange));
+    background: radial-gradient(circle at 35% 35%, #fdba74, var(--ball-orange), #9a3412);
 }
 
 /* Animations */
@@ -109,42 +109,6 @@
     background: var(--surface-color);
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
-}
-
-.preview-ball {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.3), 1px 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/* Clone color logic for preview */
-.preview-ball.red {
-    background: var(--ball-red);
-}
-
-.preview-ball.blue {
-    background: var(--ball-blue);
-}
-
-.preview-ball.green {
-    background: var(--ball-green);
-}
-
-.preview-ball.yellow {
-    background: var(--ball-yellow);
-}
-
-.preview-ball.cyan {
-    background: var(--ball-cyan);
-}
-
-.preview-ball.magenta {
-    background: var(--ball-magenta);
-}
-
-.preview-ball.orange {
-    background: var(--ball-orange);
 }
 
 /* Flying ball for animation (future) */
@@ -388,6 +352,7 @@
     border: none;
 }
 
+.ball::after,
 .preview-ball::after {
     content: '';
     position: absolute;

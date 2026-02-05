@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lines98-v1.8.1';
+const CACHE_NAME = 'lines98-static';
 const ASSETS = [
   './',
   './index.html',
@@ -21,6 +21,12 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(ASSETS))
   );
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
 
 self.addEventListener('activate', (event) => {
@@ -47,8 +53,10 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          const responseClone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseClone));
+          if (response && response.ok) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', responseClone));
+          }
           return response;
         })
         .catch(() => caches.match('./index.html'))
@@ -56,11 +64,26 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For same-origin static files use cache-first with network fallback.
+  // For same-origin static files use stale-while-revalidate:
+  // return cache fast, update in background from network.
   if (isSameOrigin) {
     event.respondWith(
-      caches.match(event.request)
-        .then((cached) => cached || fetch(event.request))
+      caches.match(event.request).then((cached) => {
+        const networkFetch = fetch(event.request)
+          .then((response) => {
+            if (response && response.ok) {
+              const clone = response.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+            }
+            return response;
+          })
+          .catch(() => cached);
+
+        return cached || networkFetch;
+      })
     );
+    return;
   }
+
+  event.respondWith(fetch(event.request));
 });
