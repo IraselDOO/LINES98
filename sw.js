@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lines98-v2';
+const CACHE_NAME = 'lines98-v1.5';
 const ASSETS = [
   './',
   './index.html',
@@ -6,15 +6,31 @@ const ASSETS = [
   './css/game.css',
   './css/animations.css',
   './js/main.js',
+  './js/Grid.js',
+  './js/Game.js',
+  './js/Renderer.js',
+  './js/SoundManager.js',
+  './js/Utils.js',
   './manifest.json',
   './assets/icons/icon-512.svg'
-  // Add other JS modules here as they are created
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting(); // Force update
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(ASSETS))
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key))
+      );
+    })
   );
 });
 

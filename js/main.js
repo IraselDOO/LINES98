@@ -89,4 +89,37 @@ document.addEventListener('DOMContentLoaded', () => {
             target.classList.add('active');
         }
     }
+
+    // --- Service Worker & Updates ---
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js').then(reg => {
+                reg.addEventListener('updatefound', () => {
+                    const newWorker = reg.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            showUpdateToast();
+                        }
+                    });
+                });
+            });
+        });
+    }
+
+    function showUpdateToast() {
+        const toast = document.createElement('div');
+        toast.className = 'update-toast';
+        toast.innerHTML = `
+            <span>Доступна новая версия!</span>
+            <button id="btn-update-reload">Обновить</button>
+        `;
+        document.body.appendChild(toast);
+
+        // Trigger animation
+        setTimeout(() => toast.classList.add('visible'), 100);
+
+        document.getElementById('btn-update-reload').addEventListener('click', () => {
+            window.location.reload();
+        });
+    }
 });

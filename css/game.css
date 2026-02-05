@@ -49,11 +49,11 @@
 
 /* Colors */
 .ball.red {
-    background: radial-gradient(circle at 30% 30%, #f87171, var(--ball-red));
+    background: radial-gradient(circle at 30% 30%, #ff8a8a, var(--ball-red));
 }
 
 .ball.blue {
-    background: radial-gradient(circle at 30% 30%, #60a5fa, var(--ball-blue));
+    background: radial-gradient(circle at 30% 30%, #8ca0ff, var(--ball-blue));
 }
 
 .ball.green {
@@ -61,19 +61,19 @@
 }
 
 .ball.yellow {
-    background: radial-gradient(circle at 30% 30%, #fef9c3, var(--ball-yellow));
+    background: radial-gradient(circle at 30% 30%, #ffffd0, var(--ball-yellow));
 }
 
 .ball.cyan {
-    background: radial-gradient(circle at 30% 30%, #a5f3fc, var(--ball-cyan));
+    background: radial-gradient(circle at 30% 30%, #a0f0ff, var(--ball-cyan));
 }
 
 .ball.magenta {
-    background: radial-gradient(circle at 30% 30%, #f0abfc, var(--ball-magenta));
+    background: radial-gradient(circle at 30% 30%, #ffc0f8, var(--ball-magenta));
 }
 
 .ball.orange {
-    background: radial-gradient(circle at 30% 30%, #ffedd5, var(--ball-orange));
+    background: radial-gradient(circle at 30% 30%, #ffead0, var(--ball-orange));
 }
 
 /* Animations */
@@ -428,4 +428,37 @@
     transform: translate(-50%, -50%);
     opacity: 0.6;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Update Notification Toast */
+.update-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 9999;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.update-toast.visible {
+    transform: translateX(-50%) translateY(0);
+}
+
+.update-toast button {
+    background: white;
+    color: var(--primary-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
 }

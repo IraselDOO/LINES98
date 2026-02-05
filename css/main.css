@@ -40,21 +40,21 @@
     --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 
-    /* Ball Colors - Hyper Contrast v1.2 */
-    --ball-red: #b91c1c;
-    /* Red 700 - Dark Cherry (Very distinct from Orange) */
-    --ball-orange: #fb923c;
-    /* Orange 400 - Bright/Light Orange */
-    --ball-yellow: #fcd34d;
-    /* Yellow 300 - Pastel Yellow (Very light) */
+    /* Ball Colors - Maximum Saturation v1.5 */
+    --ball-red: #ff0000;
+    /* Pure Electric Red */
+    --ball-orange: #ff7810;
+    /* Pure Saturated Orange */
+    --ball-yellow: #ffee00;
+    /* Pure Electric Yellow */
     --ball-green: #00ce00;
-    /* Custom Green - Vibrant Pure Green */
-    --ball-cyan: #22d3ee;
-    /* Cyan 400 - Light Blue */
-    --ball-blue: #1e3a8a;
-    /* Blue 900 - Navy/Deep Blue (Very distinct from Cyan/Green) */
-    --ball-magenta: #d946ef;
-    /* Fuschia 500 - Bright Pink */
+    /* Vibrant Green */
+    --ball-cyan: #00d5ff;
+    /* Vibrant Cyan */
+    --ball-blue: #0026ff;
+    /* Vibrant Blue */
+    --ball-magenta: #ff00ea;
+    /* Vibrant Magenta */
 
 }
 
