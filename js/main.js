@@ -91,28 +91,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Service Worker & Updates ---
+    let waitingWorker = null;
+    let isRefreshing = false;
+
     if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (isRefreshing) return;
+            isRefreshing = true;
+            window.location.reload();
+        });
+
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(reg => {
-                // Force update check on each app load (helps mobile browsers with sticky caches).
-                reg.update();
+                const checkForUpdates = () => reg.update().catch(() => { });
+                checkForUpdates();
+
                 document.addEventListener('visibilitychange', () => {
                     if (document.visibilityState === 'visible') {
-                        reg.update();
+                        checkForUpdates();
                     }
                 });
 
                 if (reg.waiting) {
-                    reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                    waitingWorker = reg.waiting;
+                    showUpdateToast();
                 }
 
                 reg.addEventListener('updatefound', () => {
                     const newWorker = reg.installing;
+                    if (!newWorker) return;
+
                     newWorker.addEventListener('statechange', () => {
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            if (reg.waiting) {
-                                reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-                            }
+                            waitingWorker = reg.waiting || newWorker;
                             showUpdateToast();
                         }
                     });
@@ -121,20 +132,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function showUpdateToast() {
-        const toast = document.createElement('div');
-        toast.className = 'update-toast';
-        toast.innerHTML = `
-            <span>New version available!</span>
-            <button id="btn-update-reload">Reload</button>
-        `;
-        document.body.appendChild(toast);
+    const btnForceUpdate = document.getElementById('btn-force-update');
+    if (btnForceUpdate) {
+        btnForceUpdate.addEventListener('click', async () => {
+            btnForceUpdate.disabled = true;
+            btnForceUpdate.textContent = 'Updating...';
 
-        // Trigger animation
-        setTimeout(() => toast.classList.add('visible'), 100);
+            try {
+                if ('serviceWorker' in navigator) {
+                    const regs = await navigator.serviceWorker.getRegistrations();
+                    await Promise.all(regs.map(reg => reg.unregister()));
+                }
 
-        document.getElementById('btn-update-reload').addEventListener('click', () => {
-            window.location.reload();
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                }
+
+                const url = new URL(window.location.href);
+                url.searchParams.set('update', Date.now().toString());
+                window.location.replace(url.toString());
+            } catch (err) {
+                window.location.reload();
+            }
         });
+    }
+
+    function showUpdateToast() {
+        let toast = document.querySelector('.update-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.className = 'update-toast';
+            toast.innerHTML = `
+                <span>New version available!</span>
+                <button id="btn-update-reload">Update now</button>
+            `;
+            document.body.appendChild(toast);
+
+            const btnApplyUpdate = document.getElementById('btn-update-reload');
+            btnApplyUpdate.addEventListener('click', () => {
+                if (waitingWorker) {
+                    waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+                } else {
+                    window.location.reload();
+                }
+            });
+        }
+
+        setTimeout(() => toast.classList.add('visible'), 100);
     }
 });

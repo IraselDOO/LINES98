@@ -47,6 +47,7 @@ self.addEventListener('fetch', (event) => {
   const isNavigation = event.request.mode === 'navigate';
   const url = new URL(event.request.url);
   const isSameOrigin = url.origin === self.location.origin;
+  const isCriticalAsset = ['script', 'style', 'worker', 'manifest'].includes(event.request.destination);
 
   // Always try network first for document navigations to avoid stale UI on mobile.
   if (isNavigation) {
@@ -64,7 +65,23 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For same-origin static files use stale-while-revalidate:
+  // For critical assets prefer network first to avoid running old code/styles.
+  if (isSameOrigin && isCriticalAsset) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // For other same-origin static files use stale-while-revalidate:
   // return cache fast, update in background from network.
   if (isSameOrigin) {
     event.respondWith(
