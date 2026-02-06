@@ -443,7 +443,7 @@
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
-    background: var(--primary-color);
+    background: #0f172a;
     color: white;
     padding: 1rem 1.5rem;
     border-radius: 50px;
@@ -461,11 +461,11 @@
 
 .update-toast button {
     background: white;
-    color: var(--primary-color);
+    color: #0f172a;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 20px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     font-size: 0.85rem;
 }

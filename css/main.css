@@ -42,6 +42,7 @@
     --motion-fast: 160ms;
     --motion-mid: 220ms;
     --motion-slow: 320ms;
+    --focus-ring: 0 0 0 3px rgba(79, 70, 229, 0.28);
 
     /* Ball Colors - Maximum Saturation v1.5 */
     --ball-red: #ff0000;
@@ -187,6 +188,11 @@ body::after {
     overflow: hidden;
 }
 
+.btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
 .btn:active {
     transform: scale(0.97);
 }
@@ -229,6 +235,13 @@ body::after {
     letter-spacing: -1.5px;
 }
 
+.game-over-title {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
 .high-score-display {
     font-size: 1rem;
     color: var(--text-secondary);
@@ -239,6 +252,24 @@ body::after {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-sm);
     border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.version-tag {
+    position: absolute;
+    bottom: 10px;
+    opacity: 0.55;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+button:focus-visible,
+.btn:focus-visible,
+.btn-undo-header:focus-visible,
+.icon-btn:focus-visible,
+.update-toast button:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
 }
 
 
