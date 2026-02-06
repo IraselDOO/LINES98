@@ -1,3 +1,7 @@
+.screen#game-screen {
+    --metric-card-width: 120px;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
@@ -127,7 +131,7 @@
     --header-control-size: 44px;
     --header-control-gap: 8px;
     --header-side-width: 132px;
-    --undo-width: 132px;
+    --undo-width: var(--metric-card-width);
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -149,31 +153,6 @@
     justify-content: flex-start;
 }
 
-.btn-new-game {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    border: none;
-    border-radius: var(--border-radius-lg);
-    padding: 10px 24px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-}
-
-.btn-new-game:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
-}
-
-.btn-new-game:active {
-    transform: translateY(0);
-}
-
 .header-center {
     flex: 1;
     display: flex;
@@ -183,7 +162,7 @@
 .header-title {
     font-size: clamp(1.05rem, 4vw, 1.6rem);
     font-weight: 900;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.1em;
     font-family: 'Segoe UI', 'Segoe UI Black', system-ui, sans-serif;
     text-transform: uppercase;
     background: linear-gradient(135deg, #4f46e5, #6366f1 60%, #8b5cf6);
@@ -194,8 +173,8 @@
 }
 
 .btn-undo-header {
-    background: transparent;
-    border: 1.25px solid rgba(99, 102, 241, 0.25);
+    background: var(--surface-elevated);
+    border: 1.5px solid rgba(99, 102, 241, 0.2);
     color: var(--primary-dark);
     border-radius: 999px;
     min-height: var(--header-control-size);
@@ -209,11 +188,13 @@
     font-size: 0.78rem;
     letter-spacing: 0.05em;
     line-height: 1;
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-undo-header:hover:not(:disabled) {
-    background: rgba(99, 102, 241, 0.08);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
     border-color: var(--primary-color);
+    transform: scale(1.03);
 }
 
 .btn-undo-header:disabled {
@@ -298,9 +279,9 @@
     border: 1.5px solid rgba(99, 102, 241, 0.15);
     border-radius: var(--border-radius);
     padding: 8px 14px;
-    min-width: 108px;
+    min-width: 96px;
     width: 100%;
-    max-width: 132px;
+    max-width: var(--metric-card-width);
     text-align: center;
     box-shadow: var(--shadow-sm);
     display: flex;
@@ -483,11 +464,14 @@
 }
 
 @media (max-width: 480px) {
+    .screen#game-screen {
+        --metric-card-width: 112px;
+    }
+
     .game-header {
         --header-control-size: 42px;
         --header-control-gap: 6px;
         --header-side-width: 116px;
-        --undo-width: 116px;
         padding: 8px 10px;
     }
 
@@ -502,8 +486,7 @@
     }
 
     .score-box {
-        min-width: 98px;
-        max-width: 118px;
+        min-width: 92px;
         padding: 8px 10px;
     }
 
@@ -536,17 +519,20 @@
 }
 
 @media (max-width: 390px) {
+    .screen#game-screen {
+        --metric-card-width: 104px;
+    }
+
     .game-header {
         --header-control-size: 40px;
         --header-control-gap: 6px;
         --header-side-width: 108px;
-        --undo-width: 108px;
         padding: 7px 8px;
     }
 
     .header-title {
         font-size: 0.96rem;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.06em;
     }
 
     .btn-undo-header {
@@ -559,8 +545,7 @@
     }
 
     .score-box {
-        min-width: 90px;
-        max-width: 108px;
+        min-width: 86px;
         padding: 7px 8px;
     }
 
