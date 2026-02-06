@@ -481,3 +481,108 @@
         background-color: rgba(239, 68, 68, 0.18);
     }
 }
+
+@media (max-width: 480px) {
+    .game-header {
+        --header-control-size: 42px;
+        --header-control-gap: 6px;
+        --header-side-width: 116px;
+        --undo-width: 116px;
+        padding: 8px 10px;
+    }
+
+    .header-title {
+        letter-spacing: 0.1em;
+        font-size: 1.04rem;
+    }
+
+    .score-preview-container {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .score-box {
+        min-width: 98px;
+        max-width: 118px;
+        padding: 8px 10px;
+    }
+
+    .score-label {
+        font-size: 0.64rem;
+    }
+
+    .score-value {
+        font-size: 1.22rem;
+    }
+
+    .next-balls-preview {
+        gap: 8px;
+        padding: 8px 10px;
+    }
+
+    .preview-ball {
+        width: 22px;
+        height: 22px;
+    }
+
+    .game-board-container {
+        padding: 8px;
+    }
+
+    .grid {
+        width: 92vmin;
+        max-height: calc(100dvh - 170px);
+    }
+}
+
+@media (max-width: 390px) {
+    .game-header {
+        --header-control-size: 40px;
+        --header-control-gap: 6px;
+        --header-side-width: 108px;
+        --undo-width: 108px;
+        padding: 7px 8px;
+    }
+
+    .header-title {
+        font-size: 0.96rem;
+        letter-spacing: 0.08em;
+    }
+
+    .btn-undo-header {
+        font-size: 0.72rem;
+    }
+
+    .score-preview-container {
+        gap: 6px;
+        padding: 7px;
+    }
+
+    .score-box {
+        min-width: 90px;
+        max-width: 108px;
+        padding: 7px 8px;
+    }
+
+    .score-label {
+        font-size: 0.6rem;
+    }
+
+    .score-value {
+        font-size: 1.12rem;
+    }
+
+    .next-balls-preview {
+        padding: 7px 8px;
+    }
+
+    .preview-ball {
+        width: 20px;
+        height: 20px;
+    }
+
+    .grid {
+        width: 94vmin;
+        max-height: calc(100dvh - 174px);
+    }
+}
